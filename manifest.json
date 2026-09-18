@@ -1,0 +1,11 @@
+{
+  "name": "Bicho Louco do Mato Rádio",
+  "short_name": "Bicho Louco Rádio",
+  "description": "A rádio oficial da galera",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "orientation": "portrait-primary",
+  "icons": []
+}

@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Bicho Louco do Mato Rádio</title>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#111111">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 35px 20px;
+            background: #1b1b1b;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            color: #aaa;
+        }
+
+        .radio,
+        .pedidos {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #1d1d1d;
+            border-radius: 15px;
+        }
+
+        .live {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #c62828;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .play {
+            width: 80px;
+            height: 80px;
+            border: none;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 7px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button.enviar {
+            width: 100%;
+            padding: 13px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📻 Bicho Louco do Mato Rádio</h1>
+
+        <div class="subtitle">
+            A rádio oficial da galera 🐸
+        </div>
+    </header>
+
+
+    <section class="radio">
+
+        <div class="live">
+            🔴 AO VIVO
+        </div>
+
+        <h2>🎵 Rádio Bicho Louco do Mato</h2>
+
+        <p id="status">
+            Rádio aguardando transmissão...
+        </p>
+
+        <button class="play" onclick="tocarRadio()">
+            ▶️
+        </button>
+
+        <audio
+            id="player"
+            controls
+            style="width:100%; margin-top:20px;">
+        </audio>
+
+    </section>
+
+
+    <section class="pedidos">
+
+        <h2>🎵 Pedir uma música</h2>
+
+        <input
+            id="musica"
+            type="text"
+            placeholder="Nome da música">
+
+        <input
+            id="artista"
+            type="text"
+            placeholder="Artista">
+
+        <input
+            id="nome"
+            type="text"
+            placeholder="Seu nome">
+
+        <button
+            class="enviar"
+            onclick="pedirMusica()">
+
+            📩 Enviar pedido
+
+        </button>
+
+        <p id="mensagem"></p>
+
+    </section>
+
+
+    <footer>
+        © 2026 Bicho Louco do Mato
+    </footer>
+
+
+    <script>
+
+        function tocarRadio() {
+
+            document.getElementById("status").textContent =
+                "🎵 Player preparado! A transmissão será conectada depois.";
+
+        }
+
+
+        function pedirMusica() {
+
+            const musica =
+                document.getElementById("musica").value;
+
+            const artista =
+                document.getElementById("artista").value;
+
+            const nome =
+                document.getElementById("nome").value;
+
+
+            if (!musica || !artista || !nome) {
+
+                document.getElementById("mensagem").textContent =
+                    "⚠️ Preencha todos os campos!";
+
+                return;
+            }
+
+
+            document.getElementById("mensagem").textContent =
+                "✅ Pedido enviado!";
+
+
+            document.getElementById("musica").value = "";
+            document.getElementById("artista").value = "";
+            document.getElementById("nome").value = "";
+
+        }
+
+
+        // Ativar instalação PWA
+
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker.register("/service-worker.js")
+
+                .then(() => {
+                    console.log("📱 PWA ativado!");
+                })
+
+                .catch(error => {
+                    console.error("Erro no PWA:", error);
+                });
+
+        }
+
+    </script>
+
+</body>
+</html>
