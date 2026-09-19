@@ -102,7 +102,6 @@
         </div>
     </header>
 
-
     <section class="radio">
 
         <div class="live">
@@ -112,7 +111,7 @@
         <h2>🎵 Rádio Bicho Louco do Mato</h2>
 
         <p id="status">
-            Rádio aguardando transmissão...
+            Rádio pronta para tocar!
         </p>
 
         <button class="play" onclick="tocarRadio()">
@@ -126,7 +125,6 @@
         </audio>
 
     </section>
-
 
     <section class="pedidos">
 
@@ -159,21 +157,40 @@
 
     </section>
 
-
     <footer>
         © 2026 Bicho Louco do Mato
     </footer>
-
 
     <script>
 
         function tocarRadio() {
 
-            document.getElementById("status").textContent =
-                "🎵 Player preparado! A transmissão será conectada depois.";
+            const player =
+                document.getElementById("player");
+
+            const status =
+                document.getElementById("status");
+
+            player.src =
+                "https://discussions-radius-ruth-pill.trycloudflare.com/radio.mp3";
+
+            player.play()
+                .then(() => {
+
+                    status.textContent =
+                        "🎵 Rádio tocando ao vivo!";
+
+                })
+                .catch((erro) => {
+
+                    status.textContent =
+                        "⚠️ Não foi possível iniciar a rádio.";
+
+                    console.error(erro);
+
+                });
 
         }
-
 
         function pedirMusica() {
 
@@ -186,7 +203,6 @@
             const nome =
                 document.getElementById("nome").value;
 
-
             if (!musica || !artista || !nome) {
 
                 document.getElementById("mensagem").textContent =
@@ -195,10 +211,8 @@
                 return;
             }
 
-
             document.getElementById("mensagem").textContent =
                 "✅ Pedido enviado!";
-
 
             document.getElementById("musica").value = "";
             document.getElementById("artista").value = "";
@@ -206,20 +220,24 @@
 
         }
 
-
-        // Ativar instalação PWA
-
         if ("serviceWorker" in navigator) {
 
-            navigator.serviceWorker.register("/service-worker.js")
+            navigator.serviceWorker.register(
+                "/service-worker.js"
+            )
+            .then(() => {
 
-                .then(() => {
-                    console.log("📱 PWA ativado!");
-                })
+                console.log("📱 PWA ativado!");
 
-                .catch(error => {
-                    console.error("Erro no PWA:", error);
-                });
+            })
+            .catch(error => {
+
+                console.error(
+                    "Erro no PWA:",
+                    error
+                );
+
+            });
 
         }
 
